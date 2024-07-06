@@ -4,6 +4,7 @@ import '../popover.dart';
 import 'popover_context.dart';
 import 'popover_position_widget.dart';
 import 'utils/build_context_extension.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class PopoverItem extends StatefulWidget {
   final Widget child;
@@ -58,27 +59,30 @@ class _PopoverItemState extends State<PopoverItem> {
           constraints: _constraints,
           direction: widget.direction,
           arrowHeight: widget.arrowHeight,
-          child: AnimatedBuilder(
-            animation: widget.animation,
-            builder: (context, child) {
-              return PopoverContext(
-                attachRect: _attachRect,
-                animation: widget.animation,
-                radius: widget.radius,
-                backgroundColor: widget.backgroundColor,
-                boxShadow: widget.boxShadow,
-                direction: widget.direction,
-                arrowWidth: widget.arrowWidth,
-                arrowHeight: widget.arrowHeight,
-                transition: widget.transition,
-                child: child,
-              );
-            },
-            child: Material(
-              child: widget.child,
-              color: widget.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: AnimatedBuilder(
+              animation: widget.animation,
+              builder: (context, child) {
+                return PopoverContext(
+                  attachRect: _attachRect,
+                  animation: widget.animation,
+                  radius: widget.radius,
+                  backgroundColor: widget.backgroundColor,
+                  boxShadow: widget.boxShadow,
+                  direction: widget.direction,
+                  arrowWidth: widget.arrowWidth,
+                  arrowHeight: widget.arrowHeight,
+                  transition: widget.transition,
+                  child: child,
+                );
+              },
+              child: Material(
+                child: widget.child,
+                color: widget.backgroundColor,
+              ),
             ),
-          ),
+          ).animate().fade(),
         )
       ],
     );
